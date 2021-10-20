@@ -18,13 +18,13 @@ router.get("/", async (req, res) => {
 // get messages from chat room
 
 // add user to chat room
-router.patch("/", async (req, res) => {
+router.patch("/:userId", async (req, res) => {
   try {
     await ChatRoom.findOneAndUpdate(
       { _id: req.body._id },
       {
         $addToSet: {
-          chatParticipants: req.body.userId,
+          chatParticipants: req.params.userId,
         },
       }
     );
