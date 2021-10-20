@@ -26,6 +26,12 @@ router.post('/login', async (req, res) => {
     if (user === null) {
       return res.status(404).json({ message: "User doesn't exist!" });
     }
+
+    if (await bcrypt.compare(req.body.password, user.password)) {
+      res.send('Success');
+    } else {
+      res.status(400).json({message: "Incorrect password"});
+    }
   } catch (err) {
     res.status(500).json({ message: err.message });
   }
